@@ -20,6 +20,7 @@ export default function SearchCity({
       lon: fetchData && fetchData.lon,
       name: fetchData && fetchData.name,
     });
+    window.location.reload();
   };
 
   return (
