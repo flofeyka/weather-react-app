@@ -28,6 +28,13 @@ export default function App() {
   const { locationInfo } = useGeolocation();
 
   useEffect(() => {
+    if (locationInfo && !cityState.lat && !cityState.lon) {
+      setCityState({
+        lat: locationInfo.latitude,
+        lon: locationInfo.longitude,
+        name: null as string,
+      });
+    }
     const fetchWeatherData = async () => {
       const fetchData = await weatherAPI.fetchWeatherByGeo(
         locationInfo?.latitude || cityState.lat || 55.751244,
