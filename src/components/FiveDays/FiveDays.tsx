@@ -22,6 +22,7 @@ export default function FiveDays({ days }: { days: any }) {
   console.log(Object.entries(daysSorted))
   const averageValuesAtDays = Object.entries(daysSorted).map((day: any) => ({
     date: day[0],
+    weather: day[1][0].weather[0].main,
     temp: getAverageValue(day[1].map(dayItem => dayItem.main.temp)),
     grnd_level: getAverageValue(day[1].map(dayItem => dayItem.main.grnd_level)),
     humidity: getAverageValue(day[1].map(dayItem => dayItem.main.humidity)),

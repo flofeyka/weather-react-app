@@ -23,7 +23,7 @@ export default function DayItem({ day }: { day: any }) {
       />
       <img
         alt="icon"
-        src="/icons/1.svg"
+        src={`/weather/${day.weather}.svg`}
         className="relative w-[115px] h-[115px]"
       />
       <div className="leading-4 gap-0">

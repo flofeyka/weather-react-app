@@ -25,7 +25,7 @@ export default function HourItem({ day }: { day: any }) {
       <div className="w-full flex justify-center">
         <img
           alt={day.dt}
-          src={`/icons/1.svg`}
+          src={`/weather/${day.weather[0].main}.svg`}
           className="min-w-[75px] min-h-[75px]"
           width={75}
           height={75}
