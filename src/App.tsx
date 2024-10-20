@@ -71,10 +71,12 @@ export default function App() {
                 new Date(Date.now()).getUTCDate()
             )}
           />
-          <Map
-            lon={cityState?.lon || 37.618423}
-            lat={cityState?.lat || 55.751244}
-          />
+          {cityState.name && (
+            <Map
+              lon={cityState?.lon || 37.618423}
+              lat={cityState?.lat || 55.751244}
+            />
+          )}
         </div>
         <div className="w-full justify-center flex">
           <FiveDays days={weatherState.list} />
