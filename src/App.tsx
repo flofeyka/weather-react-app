@@ -26,7 +26,6 @@ export default function App() {
   });
 
   const { locationInfo } = useGeolocation();
-  console.log(locationInfo);
 
   useEffect(() => {
     const fetchWeatherData = async () => {
@@ -66,8 +65,8 @@ export default function App() {
             )}
           />
           <Map
-            lon={cityState.lon || 37.618423}
-            lat={cityState.lat || 55.751244}
+            lon={JSON.parse(localStorage.getItem("geoData")).lon || 37.618423}
+            lat={JSON.parse(localStorage.getItem("geoData")).lat || 55.751244}
           />
         </div>
         <div className="w-full justify-center flex">
