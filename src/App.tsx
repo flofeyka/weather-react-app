@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import { weatherAPI } from "./api/weatherAPI";
@@ -27,7 +27,7 @@ export default function App() {
 
   const { locationInfo } = useGeolocation();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (locationInfo && !cityState.lat && !cityState.lon) {
       setCityState({
         lat: locationInfo.latitude,
@@ -72,8 +72,8 @@ export default function App() {
             )}
           />
           <Map
-            lon={JSON.parse(localStorage.getItem("geoData")).lon || 37.618423}
-            lat={JSON.parse(localStorage.getItem("geoData")).lat || 55.751244}
+            lon={cityState?.lon || 37.618423}
+            lat={cityState?.lat || 55.751244}
           />
         </div>
         <div className="w-full justify-center flex">
