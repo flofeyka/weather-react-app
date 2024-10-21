@@ -1,6 +1,6 @@
 import { Button, Input } from "@nextui-org/react";
 import React from "react";
-import { weatherAPI } from "../api/weatherAPI";
+import { weatherAPI } from "../../api/weatherAPI";
 
 export default function SearchCity({
   setCityState,

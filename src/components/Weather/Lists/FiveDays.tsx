@@ -1,5 +1,5 @@
-import { Button, Card, CardBody, CardHeader } from "@nextui-org/react";
-import DayItem from "./DayItem";
+import { Button } from "@nextui-org/react";
+import WeatherElementItem from "../WeatherElementItem";
 
 const getAverageValue = (values) => {
   const sum = values.reduce((acc, number) => acc + number, 0);
@@ -22,7 +22,7 @@ export default function FiveDays({ days }: { days: any }) {
   console.log(Object.entries(daysSorted));
   const averageValuesAtDays = Object.entries(daysSorted).map((day: any) => ({
     date: day[0],
-    weather: day[1][0].weather[0].main,
+    weatherIcon: day[1][0].weather[0].main,
     temp: getAverageValue(day[1].map((dayItem) => dayItem.main.temp)),
     grnd_level: getAverageValue(
       day[1].map((dayItem) => dayItem.main.grnd_level)
@@ -33,26 +33,32 @@ export default function FiveDays({ days }: { days: any }) {
   console.log(averageValuesAtDays);
 
   return (
-    <Card className="w-[81vw] p-2 mt-5">
+    <div>
       {Object.entries(averageValuesAtDays).length > 0 ? (
         <div>
-          <CardHeader className="text-3xl font-semibold">
-            Погода на 5 дней
-          </CardHeader>
-          <CardBody className="h-full overflow-x-auto relative w-full">
-            <div className="flex justify-between w-full gap-3 pr-4 px-1">
+          <div className="h-full relative w-full">
+            <div className="flex justify-between w-full gap-3">
               {Object.entries(averageValuesAtDays).map((day) => (
-                <DayItem day={day[1]} />
+                <WeatherElementItem
+                  time={`${day[1].date}.${new Date(Date.now()).getUTCMonth()+1}`}
+                  temp={day[1].temp}
+                  grnd_level={day[1].grnd_level}
+                  humidity={day[1].grnd_level}
+                  windSpeed={day[1].wind_speed}
+                  iconName={day[1].weatherIcon}
+                />
               ))}
             </div>
-          </CardBody>
+          </div>
         </div>
       ) : (
-        <div className="w-full h-full flex flex-col justify-center items-center min-h-[25vh] text-xl gap-3 font-semibold">
+        <div className="w-full h-full flex flex-col justify-center items-center text-xl gap-3 font-semibold">
           <div>Произошла непредвиденная ошибка</div>
-          <Button color="primary" onClick={() => window.location.reload()}>Обновить</Button>
+          <Button color="primary" onClick={() => window.location.reload()}>
+            Обновить
+          </Button>
         </div>
       )}
-    </Card>
+    </div>
   );
 }

@@ -3,14 +3,13 @@ import {
   reactify,
   YMap,
   YMapDefaultFeaturesLayer,
-  YMapDefaultSchemeLayer,
-  YMapMarker,
-} from "../lib/ymaps";
+  YMapDefaultSchemeLayer
+} from "../../lib/ymaps";
 
 export default function Map({ lat, lon }: { lat: number; lon: number }) {
 
   return (
-    <Card className="w-[40vw] min-h-[25vh]">
+    <Card className="w-[45vw]">
       <YMap
         theme="dark"
         location={reactify.useDefault({
