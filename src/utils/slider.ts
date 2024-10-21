@@ -8,7 +8,7 @@ export const SLIDER_DEFAULT_SETTINGS: Settings = {
         {
             breakpoint: 1690,
             settings: {
-                slidesToShow: 6
+                slidesToShow: 5
             }
         },
         {

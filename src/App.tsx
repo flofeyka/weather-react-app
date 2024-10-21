@@ -1,12 +1,12 @@
-import React, { useEffect, useLayoutEffect } from "react";
+import { Card, Spinner } from "@nextui-org/react";
+import React, { useLayoutEffect } from "react";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import { weatherAPI } from "./api/weatherAPI";
 import "./App.css";
-import FiveDays from "./components/FiveDays/FiveDays";
-import Header from "./components/Header";
-import Map from "./components/Map";
-import Hours from "./components/Today/Hours";
+import Header from "./components/Header/Header";
+import Map from "./components/Map/Map";
+import Weather from "./components/Weather/Weather";
 import { useGeolocation } from "./hooks/useGeolocation";
 
 export default function App() {
@@ -28,7 +28,7 @@ export default function App() {
   const { locationInfo } = useGeolocation();
 
   useLayoutEffect(() => {
-    if (locationInfo && !cityState.lat && !cityState.lon) {
+    if (locationInfo && !cityState.lat && !cityState.lon && !cityState.name) {
       setCityState({
         lat: locationInfo.latitude,
         lon: locationInfo.longitude,
@@ -56,31 +56,34 @@ export default function App() {
     cityState.lon,
     locationInfo?.latitude,
     locationInfo?.longitude,
+    cityState.name
   ]);
 
   return (
-    <div className="bg-[#111] h-screen h-full">
+    <div className="bg-[#111] h-screen">
       <Header setCityState={setCityState} />
-      <div className="p-10">
-        <div className="flex gap-5 w-full justify-center">
-          <Hours
-            cityName={cityState.name}
-            today={weatherState?.list?.filter(
-              (val) =>
-                new Date(val.dt_txt).getUTCDate() >
-                new Date(Date.now()).getUTCDate()
-            )}
-          />
-          {cityState.name && (
-            <Map
-              lon={cityState?.lon || 37.618423}
-              lat={cityState?.lat || 55.751244}
-            />
+      <div className="flex gap-5 w-full justify-center mt-10 min-h-[25vh]">
+        <Weather
+          days={weatherState.list}
+          cityName={cityState.name}
+          today={weatherState?.list?.filter(
+            (val) =>
+              new Date(val.dt_txt).getUTCDate() >
+              new Date(Date.now()).getUTCDate()
           )}
-        </div>
-        <div className="w-full justify-center flex">
-          <FiveDays days={weatherState.list} />
-        </div>
+        />
+        {cityState.name ? (
+          <Map
+            lon={cityState?.lon || 37.618423}
+            lat={cityState?.lat || 55.751244}
+          />
+        ) : (
+          <Card className="w-[45vw] h-full">
+            <div className="flex flex-col h-full w-full justify-center items-center">
+              <Spinner color="primary" size="lg" />
+            </div>
+          </Card>
+        )}
       </div>
     </div>
   );
